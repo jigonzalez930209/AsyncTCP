@@ -750,9 +750,9 @@ bool AsyncClient::connect(const char* host, uint16_t port){
             return connect(IPv6Address(addr.u_addr.ip6.addr), port);
         }
         return connect(IPAddress(addr.u_addr.ip4.addr), port);
-#else
-        return connect(IPAddress(addr.addr), port);
-#endif
+// #else
+//         return connect(IPAddress(addr.addr), port);
+// #endif
     } else if(err == ERR_INPROGRESS) {
         _connect_port = port;
         return true;
@@ -1017,7 +1017,7 @@ int8_t AsyncClient::_poll(tcp_pcb* pcb){
 }
 
 void AsyncClient::_dns_found(struct ip_addr *ipaddr){
-#if LWIP_IPV4 && LWIP_IPV6
+// #if LWIP_IPV4 && LWIP_IPV6
     if(ipaddr && ipaddr->u_addr.ip4.addr){
         connect(IPAddress(ipaddr->u_addr.ip4.addr), _connect_port);
     } else if(ipaddr && ipaddr->u_addr.ip6.addr){
